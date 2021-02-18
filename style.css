@@ -1,15 +1,14 @@
 html, body{
-    margin: 20px;
+    margin: 1%;
     padding: 0;
     height: 100%;
     width: 100%;
   }
   #camera, #camera--view, #camera--sensor, #camera--output{
       position: fixed;
-      left: 100px;
-      right: 100px;
-      height: 250px;
-      width: 250px;
+      left: calc(20% - 100px);
+      height: 300px;
+      width: 300px;
       object-fit: cover;
   }
   #camera--view, #camera--sensor, #camera--output{
