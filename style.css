@@ -1,21 +1,29 @@
 html, body{
     margin: 1%;
-    padding: 0;
+    padding: 1%;
     height: 100%;
     width: 100%;
   }
   #camera, #camera--view, #camera--sensor, #camera--output{
       position: fixed;
-      left: calc(20% - 100px);
+      left: calc(30% - 100px);
       height: 300px;
       width: 300px;
       object-fit: cover;
   }
+    #camera--disp{
+    position: fixed;
+    top: 350px;
+    Right: calc(45% - 100px);
+    height: 250px;
+    width: 250px;
+    object-fit: cover;
+}
   #camera--view, #camera--sensor, #camera--output{
       transform: scaleX(-1);
       filter: FlipH;
   }
-  #camera--trigger{
+  #camera--start{
       width: 200px;
       background-color: black;
       color: white;
@@ -27,8 +35,22 @@ html, body{
       box-shadow: 0 5px 10px 0 rgba(0,0,0,0.2);
       position: fixed;
       bottom: 30px;
-      left: calc(50% - 100px);
+      left: calc(30% - 100px);
   }
+  #camera--stop{
+    width: 200px;
+    background-color: black;
+    color: white;
+    font-size: 16px;
+    border-radius: 30px;
+    border: none;
+    padding: 15px 20px;
+    text-align: center;
+    box-shadow: 0 5px 10px 0 rgba(0,0,0,0.2);
+    position: fixed;
+    bottom: 30px;
+    left: calc(70% - 100px);
+}
   .taken{
       height: 100px!important;
       width: 100px!important;
