@@ -5,21 +5,21 @@ html, body{
     width: 100%;
   }
   #camera, #camera--view, #camera--sensor, #camera--output{
-      position: fixed;
-      left: calc(50% - 100px);
-      height: 200px;
-      width: 200px;
-      object-fit: cover;
+    position: fixed;
+    left: calc(35% - 100px);
+    height: 20%;
+    width: 20%;
+    object-fit: cover;
 }
 
     #camera--canvas{
-    position: fixed;
-    left: calc(40% - 100px);
-    height: 363px;
-    width: 484px;
-    object-fit: cover;
-    transform: scaleX(-1);
-    filter: FlipH;
+        position: fixed;
+        left:calc(35% - 100px);
+        width: 264px;
+        height: 198px;
+        object-fit: cover;
+        transform: scaleX(-1);
+        filter: FlipH;
     }
   #camera--view, #camera--sensor, #camera--output{
       transform: scaleX(-1);
@@ -54,7 +54,7 @@ html, body{
     left: calc(70% - 100px);
 }
 #camera--feedback{
-    width: 300px;
+    width: 264px;
     margin: 1px;
     padding: 1px;
     color: rgb(255, 255, 255);
@@ -65,7 +65,7 @@ html, body{
     font-weight: 800;
     text-align: center;
     position: fixed;
-    left: calc(50% - 100px);
+    left:calc(35% - 100px);
     top: 80px;
 }
   .taken{
