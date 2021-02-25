@@ -1,5 +1,6 @@
 // Set constraints for the video stream
 var constraints = { video: { facingMode: "user",frameRate: 30 }, audio: false };
+var prevRed = 0;
 // Define constants
 const cameraView = document.querySelector("#camera--view"),
     cameraOutput = document.querySelector("#camera--output"),
@@ -20,25 +21,32 @@ function cameraStart() {
 
 
         function ImStream(){
-            var w = 300;
-            var h = 250;
+            //var w = 490;
+            //var h = w/1.5;
+            const w = cameraCanvas.clientWidth;
+            const h = cameraCanvas.clientHeight;
+
+            cameraCanvas.width = w;
+            cameraCanvas.height = h;
 
             var context = cameraCanvas.getContext('2d');
             context.drawImage(cameraView,0,0,w,h);
         
+
 
             var canvasColor = context.getImageData(0, 0, w, h);
             var pixels = canvasColor.data;
             var r = pixels[0];
             console.log(r);
 
-            if (pixels[(0*4)+1] > 40 && pixels[((w-1)*4)+1] > 50){
+            if (pixels[(0*4)+1] > 50 && pixels[((w-1)*4)+1] > 50){
                 cameraFeedback.innerHTML = "Place Finger Over Camera";
             }
-            else if (pixels[1] < 40 && pixels[2] < 50){
+            else if (pixels[1] < 50 && pixels[2] < 50){
             
-                if (pixels[(22500*4)] < 70){
+                if (pixels[(22500*4)] < 80 && prevRed < 120){
                 cameraFeedback.innerHTML = "Room Is Too Dark";
+                prevRed = pixels[(22500*4)];
                 }
                 else {
                 cameraFeedback.innerHTML = "";
