@@ -33,16 +33,19 @@ function cameraStart() {
 
             const FT = 40;
     
-
-            cameraCanvas.width = w;
-            cameraCanvas.height = h;
-            
-            
+            if(window.innerHeight > window.innerWidth){
+                cameraCanvas.width = h;
+                cameraCanvas.height = w;
+            }
+            else{
+                cameraCanvas.width = w;
+                cameraCanvas.height = h;
+            }
+             
 
             var context = cameraCanvas.getContext('2d');
             context.drawImage(cameraView,0,0,w,h);
         
-
 
             var canvasColor = context.getImageData(0, 0, w, h);
             var pixels = canvasColor.data;
@@ -50,8 +53,7 @@ function cameraStart() {
             var rgCent = pixels[(4*center)]/pixels[(4*center)+1];
             var rbCent = pixels[(4*center)]/pixels[(4*center)+2];
 
-            
-           
+        
 
             var redCorn = Math.min(pixels[(4*UL)],pixels[(4*UR)],pixels[(4*BL)],pixels[(4*BR)]);
             var greenCorn = Math.min(pixels[(4*UL)+1],pixels[(4*UR)+1],pixels[(4*BL)+1],pixels[(4*BR)+1]);
@@ -85,9 +87,6 @@ function cameraStart() {
     .catch(function(error) {
         console.error("Error", error);
     });
-
-
-
     
     
 }
