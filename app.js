@@ -25,9 +25,19 @@ function cameraStart() {
             //var h = w/1.5;
             const w = cameraCanvas.clientWidth;
             const h = cameraCanvas.clientHeight;
+            const center = ((w*h)/2)-1;
+            const UL = 0;
+            const UR = (w-1);
+            const BL = (w*(h-1))-1;
+            const BR = (w*(h))-1;
+
+            const FT = 40;
+    
 
             cameraCanvas.width = w;
             cameraCanvas.height = h;
+            
+            
 
             var context = cameraCanvas.getContext('2d');
             context.drawImage(cameraView,0,0,w,h);
@@ -36,23 +46,23 @@ function cameraStart() {
 
             var canvasColor = context.getImageData(0, 0, w, h);
             var pixels = canvasColor.data;
-            var r = pixels[0];
-            console.log(r);
+            var rgCent = pixels[(4*center)]/pixels[(4*center)+1];
+            var rbCent = pixels[(4*center)]/pixels[(4*center)+2];
+           
 
-            if (pixels[(0*4)+1] > 50 && pixels[((w-1)*4)+1] > 50){
-                cameraFeedback.innerHTML = "Place Finger Over Camera";
-            }
-            else if (pixels[1] < 50 && pixels[2] < 50){
-            
-                if (pixels[(22500*4)] < 80 && prevRed < 120){
-                cameraFeedback.innerHTML = "Room Is Too Dark";
-                prevRed = pixels[(22500*4)];
-                }
-                else {
-                cameraFeedback.innerHTML = "";
-                }
+            var redCorn = Math.max(pixels[(4*UL)],pixels[(4*UR)],pixels[(4*BL)],pixels[(4*BR)]);
+            var greenCorn = Math.min(pixels[(4*UL)+1],pixels[(4*UR)+1],pixels[(4*BL)+1],pixels[(4*BR)+1]);
+            var rgCorn = redCorn/greenCorn;
 
+            //(pixels[(0*4)+1] < FT || pixels[((w-1)*4)+1] < FT || pixels[((BL-1)*4)+1] < FT || pixels[((BR-1)*4)+1] < FT)
+            if (rgCent < 8 && rbCent < 8){
+                cameraFeedback.innerHTML = "Place Finger Over Camera"
             }
+            else if (rgCent > 8 && rbCent > 8){
+                cameraFeedback.innerHTML = "";;
+            }
+
+
         };
 
 
