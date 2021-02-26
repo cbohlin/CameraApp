@@ -59,9 +59,9 @@ html, body{
     margin: 1px;
     padding: 1px;
     color: rgb(255, 255, 255);
-    -webkit-text-stroke-width: 0.75px;
+    -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Helvetica, Arial, sans-serif;
     font-size: 40px;
     font-weight: 800;
     text-align: center;
