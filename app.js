@@ -46,20 +46,35 @@ function cameraStart() {
 
             var canvasColor = context.getImageData(0, 0, w, h);
             var pixels = canvasColor.data;
+            var rcent = pixels[(4*center)];
             var rgCent = pixels[(4*center)]/pixels[(4*center)+1];
             var rbCent = pixels[(4*center)]/pixels[(4*center)+2];
+
+            
            
 
-            var redCorn = Math.max(pixels[(4*UL)],pixels[(4*UR)],pixels[(4*BL)],pixels[(4*BR)]);
+            var redCorn = Math.min(pixels[(4*UL)],pixels[(4*UR)],pixels[(4*BL)],pixels[(4*BR)]);
             var greenCorn = Math.min(pixels[(4*UL)+1],pixels[(4*UR)+1],pixels[(4*BL)+1],pixels[(4*BR)+1]);
             var rgCorn = redCorn/greenCorn;
+            console.log(rgCorn);
 
             //(pixels[(0*4)+1] < FT || pixels[((w-1)*4)+1] < FT || pixels[((BL-1)*4)+1] < FT || pixels[((BR-1)*4)+1] < FT)
-            if (rgCent < 8 && rbCent < 8){
+            if (rgCent < 7 && rbCent < 7){
+                
                 cameraFeedback.innerHTML = "Place Finger Over Camera"
+                
             }
-            else if (rgCent > 8 && rbCent > 8){
-                cameraFeedback.innerHTML = "";;
+                    
+
+            else if (rgCent > 7 && rbCent > 7){
+
+                if (rcent< 55){
+                    cameraFeedback.innerHTML = "Too Dark"
+                }
+                else{
+                cameraFeedback.innerHTML = "";
+                }
+                
             }
 
 
