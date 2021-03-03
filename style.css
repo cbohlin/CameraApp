@@ -63,10 +63,14 @@ html, body{
         left: calc(70% - 100px);
     }
     #camera--feedback{
-        margin: 1px;
-        padding: 1px;
-        color: rgb(175, 247, 166);
-        background-color:  rgba(102, 1, 105, 0.356);
+        margin: 0px;
+        padding: 0px;
+        left: 5px;
+        top: 5px;
+        height:300px;
+        width: 400px;        
+        color: rgb(35, 151, 252);
+        background-color:  rgba(2, 59, 50, 0.356);
         -webkit-text-stroke-width: 1.25px;
         -webkit-text-stroke-color: black;
         font-family: Helvetica, Arial, sans-serif;
