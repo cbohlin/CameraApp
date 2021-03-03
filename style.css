@@ -4,7 +4,7 @@ html, body{
     height: 100%;
     width: 100%;
     background-color:  rgb(29, 29, 29);
-    overflow: scroll;
+    overflow: hidden;
   }
     #camera--view{
         position: fixed;
@@ -17,6 +17,8 @@ html, body{
 
     #camera--canvas{
         position: fixed;
+        height:300px;
+        width:400px;
         left: 5px;
         top: 5px;
         object-fit: cover;
