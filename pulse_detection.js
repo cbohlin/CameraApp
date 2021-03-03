@@ -35,6 +35,8 @@ function cameraStart() {
             var wWidth = window.innerWidth;
             var wHeight = window.innerHeight;
             if (wWidth<wHeight){
+                cameraCanvas.height = 300;
+                cameraCanvas.width = 400;
                 cameraFeedback.innerHTML = "";
                 cameraTextWarning.innerHTML = "Please Rotate Phone";
 
