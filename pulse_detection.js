@@ -8,7 +8,9 @@ const cameraView = document.querySelector("#camera--view"),
     cameraCanvas = document.querySelector("#camera--canvas"),
     cameraTrigger = document.querySelector("#camera--start"),
     cameraStop = document.querySelector("#camera--stop"),
-    cameraFeedback = document.querySelector("#camera--feedback")
+    cameraFeedback = document.querySelector("#camera--feedback"),
+    cameraWarning = document.querySelector("#camera--warning"),
+    cameraTextWarning = document.querySelector("#camera--textWarning")
 //
 
 
@@ -26,21 +28,49 @@ function cameraStart() {
         
         
         function ImStream(){
+            
+
+
             const tstart = performance.now();
             var wWidth = window.innerWidth;
             var wHeight = window.innerHeight;
-
-            if (wWidth > wHeight){
-                cameraCanvas.height = 300;
-                cameraCanvas.width = 400;
-            }
-            else{
+            if (wWidth<wHeight){
                 cameraCanvas.width = 300;
                 cameraCanvas.height = 225;
+                cameraFeedback.innerHTML = "";
+                cameraTextWarning.innerHTML = "Please Rotate Phone";
+
+                cameraView.style.visibility = 'hidden';
+
+                cameraWarning.width = window.innerWidth;
+                cameraWarning.height = window.innerHeight;
+                var CTX = cameraWarning.getContext('2d');
+                CTX.clearRect(0, 0, window.innerWidth, window.innerHeight);
+                CTX.beginPath();
+                CTX.rect(0, 0, window.innerWidth, window.innerHeight);
+                CTX.fillStyle = 'rgba(40,40,40,0.93)';
+                CTX.fill();  
             }
+
+
+
+            else if (wWidth > wHeight){
+                cameraTextWarning.innerHTML = "";
+                cameraCanvas.height = 300;
+                cameraCanvas.width = 400;
+
+                cameraView.style.visibility = 'visible';
+                
+                var CTX = cameraWarning.getContext('2d');
+                CTX.clearRect(0, 0, window.innerWidth, window.innerHeight);
+                CTX.beginPath();
+                CTX.rect(0, 0, window.innerWidth, window.innerHeight);
+                CTX.fillStyle = 'rgba(0,0,0,0)';
+                CTX.fill(); 
             
-            //var w = 490;
-            //var h = w/1.5;
+
+            
+           
             const w = cameraCanvas.clientWidth;
             const h = cameraCanvas.clientHeight;
         
@@ -60,6 +90,7 @@ function cameraStart() {
              
 
             var context = cameraCanvas.getContext('2d');
+
             context.drawImage(cameraView,0,0,w,h);
         
 
@@ -113,6 +144,7 @@ function cameraStart() {
             
             const tstop = performance.now();
             console.log(tstop-tstart);
+        }
         };
 
         
