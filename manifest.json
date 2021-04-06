@@ -1,0 +1,15 @@
+{
+  "short_name": "AF Detection",
+  "name": "Atrial Fibrillation Detection App",
+  "theme_color": "#ffcbe4",
+  "background_color": "#fa99ca",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "scope": "/",
+  "start_url": "index.html",
+  "icons": [
+  {
+  }
+  ]
+ 
+}
