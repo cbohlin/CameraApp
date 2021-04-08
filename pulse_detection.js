@@ -20,7 +20,6 @@ var Norm;
 var ctxWave ;
 var waveData ;
 var kik = 1;
-var locs = [];
 
 
 
@@ -326,6 +325,6 @@ function dataProcess() {
         	total += RR[k];
     	}
     	var HeartRate = 1800 * RR.length / total;
-    	HR.innerHTML = String(Math.round(HeartRate)).concat(' bpm');
+    	HR.innerHTML = String(locs).concat(' bpm');
 	
 }
