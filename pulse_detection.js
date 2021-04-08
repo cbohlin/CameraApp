@@ -286,36 +286,36 @@ Restart.onclick = function(){
 
 
 function dataProcess() {
-    
-
-
-    function filter(B, A, X){
-        var Y = [];
-        Y[0] = B[0] * X[0];
-        Y[1] = B[0] * X[1] + B[1] * X[0] - A[1] * Y[0];
-        for (n = 2; n < X.length; n++){
-            Y[n] = B[0] * X[n] + B[1] * X[n-1] + B[2] * X[n-2] - A[1] * Y[n-1] - A[2] * Y[n-2];
-        }
-        return Y;
-    }
-    function findpeaks(signal,window,threshold){
-        var peaks = [0];
-        for (i = 2; i < signal.length; i++){
-            if (signal[i] < signal[i-1]){
-                if (signal[i-2] < signal[i-1]){
-                    if (signal[i-1] > threshold){
-                        if (i > peaks[peaks.length - 1] + window){
-                            peaks.push(i-1);
-                        }
-                    }
-                }
-            }
-        }
-        peaks.shift();
-        return peaks;
-    }
-    const signal = filter(B,A,RedAv);
-    const ans = findpeaks(signal,15,0.3);
+    function findpeaks(signal,window){
+	signal.splice(0,50);
+	var threshold = 0;
+	for (i = 0; i < signal.length; i++){
+		var start = Math.max(0, i - 50);
+		var finish = Math.min(signal.length, i + 50);
+		var sum = 0;
+		for (j = start; j < finish; j++){
+			sum += signal[j];
+		}
+		var avg = sum / (finish - start);
+		threshold.push(avg)
+	}
+	threshold.shift();
+	var peaks = [0];
+	for (k = 2; k < signal.length; k++){
+		if (signal[k] < signal[k-1]){
+			if (signal[k-2] < signal[k-1]){
+				if (signal[k-1] > threshold[j-1]){
+					if (k > peaks[peaks.length - 1] + window){
+						peaks.push(k-1);
+					}
+				}
+			}
+		}
+	}
+	peaks.shift();
+	return peaks;
+}
+    const ans = findpeaks(RedAvFilt,15);
     var RR = [ans[1]-ans[0]];
     for (j = 2; j < ans.length; j++){
         RR.push(ans[j]-ans[j-1]);
