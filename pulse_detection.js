@@ -283,10 +283,7 @@ Restart.onclick = function(){
     Fin = 0;    
 }
 
-
-
-function dataProcess() {
-    function findpeaks(signal,window){
+function findpeaks(signal,window){
 	signal.splice(0,50);
 	var threshold = [0];
 	for (i = 0; i < signal.length; i++){
@@ -326,5 +323,3 @@ function dataProcess() {
     }
     var HeartRate = 1800 * RR.length / total;
     HR.innerHTML = String(Math.round(HeartRate)).concat(' bpm');
-
-}
