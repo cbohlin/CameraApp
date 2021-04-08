@@ -288,7 +288,7 @@ Restart.onclick = function(){
 function dataProcess() {
     function findpeaks(signal,window){
 	signal.splice(0,50);
-	var threshold = 0;
+	var threshold = [0];
 	for (i = 0; i < signal.length; i++){
 		var start = Math.max(0, i - 50);
 		var finish = Math.min(signal.length, i + 50);
