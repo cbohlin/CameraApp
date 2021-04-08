@@ -297,7 +297,7 @@ function dataProcess() {
 			sum += signal[j];
 		}
 		var avg = sum / (finish - start);
-		threshold.push(avg)
+		threshold.push(avg);
 	}
 	threshold.shift();
 	var peaks = [0];
