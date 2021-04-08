@@ -296,7 +296,7 @@ function dataProcess() {
 			for (j = start; j < finish; j++){
 				sum += signal[j];
 			}
-			var avg = sum / (finish - start);
+			var avg = sum / (finish - start + 1);
 			threshold.push(avg);
 		}
 		threshold.shift();
