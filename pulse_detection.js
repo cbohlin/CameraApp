@@ -315,10 +315,10 @@ function dataProcess() {
 	peaks.shift();
 	return peaks;
 }
-    const ans = findpeaks(RedAvFilt,15);
-    var RR = [ans[1]-ans[0]];
-    for (j = 2; j < ans.length; j++){
-        RR.push(ans[j]-ans[j-1]);
+    const locs = findpeaks(RedAvFilt,15);
+    var RR = [locs[1]-locs[0]];
+    for (j = 2; j < locs.length; j++){
+        RR.push(locs[j]-locs[j-1]);
     }
     var total = 0;
     for (k = 0; k < RR.length; k++){
