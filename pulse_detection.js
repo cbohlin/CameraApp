@@ -20,7 +20,7 @@ var Norm;
 var ctxWave ;
 var waveData ;
 var kik = 1;
-
+var locs = [];
 
 
 
@@ -283,43 +283,49 @@ Restart.onclick = function(){
     Fin = 0;    
 }
 
-function findpeaks(signal,window){
-	signal.splice(0,50);
-	var threshold = [0];
-	for (i = 0; i < signal.length; i++){
-		var start = Math.max(0, i - 50);
-		var finish = Math.min(signal.length, i + 50);
-		var sum = 0;
-		for (j = start; j < finish; j++){
-			sum += signal[j];
+function dataProcess() {
+	
+	
+	
+	function findpeaks(signal,window){
+		signal.splice(0,50);
+		var threshold = [0];
+		for (i = 0; i < signal.length; i++){
+			var start = Math.max(0, i - 50);
+			var finish = Math.min(signal.length, i + 50);
+			var sum = 0;
+			for (j = start; j < finish; j++){
+				sum += signal[j];
+			}
+			var avg = sum / (finish - start);
+			threshold.push(avg);
 		}
-		var avg = sum / (finish - start);
-		threshold.push(avg);
-	}
-	threshold.shift();
-	var peaks = [0];
-	for (k = 2; k < signal.length; k++){
-		if (signal[k] < signal[k-1]){
-			if (signal[k-2] < signal[k-1]){
-				if (signal[k-1] > threshold[j-1]){
-					if (k > peaks[peaks.length - 1] + window){
-						peaks.push(k-1);
+		threshold.shift();
+		var peaks = [0];
+		for (k = 2; k < signal.length; k++){
+			if (signal[k] < signal[k-1]){
+				if (signal[k-2] < signal[k-1]){
+					if (signal[k-1] > threshold[j-1]){
+						if (k > peaks[peaks.length - 1] + window){
+							peaks.push(k-1);
+						}
 					}
 				}
 			}
 		}
+		peaks.shift();
+		return peaks;
 	}
-	peaks.shift();
-	return peaks;
+    	var locs = findpeaks(RedAvFilt,15);
+    	var RR = [locs[1]-locs[0]];
+    	for (j = 2; j < locs.length; j++){
+        	RR.push(locs[j]-locs[j-1]);
+    	}
+    	var total = 0;
+    	for (k = 0; k < RR.length; k++){
+        	total += RR[k];
+    	}
+    	var HeartRate = 1800 * RR.length / total;
+    	HR.innerHTML = String(Math.round(HeartRate)).concat(' bpm');
+	
 }
-    var locs = findpeaks(RedAvFilt,15);
-    var RR = [locs[1]-locs[0]];
-    for (j = 2; j < locs.length; j++){
-        RR.push(locs[j]-locs[j-1]);
-    }
-    var total = 0;
-    for (k = 0; k < RR.length; k++){
-        total += RR[k];
-    }
-    var HeartRate = 1800 * RR.length / total;
-    HR.innerHTML = String(Math.round(HeartRate)).concat(' bpm');
