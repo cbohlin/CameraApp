@@ -299,6 +299,7 @@ function dataProcess() {
 			var avg1 = sum1 / (finish1 - start1 + 1);
 			signal.push(avg1);
 		}
+		signal.shift();
 		var threshold = [0];
 		for (i = 0; i < signal.length; i++){
 			var start = Math.max(0, i - 25);
