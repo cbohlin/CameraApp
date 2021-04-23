@@ -291,7 +291,7 @@ function dataProcess() {
 		var signal = [0];
 		for (n = 0; n < signal1.length; n++){
 			var start1 = Math.max(0, n - 1);
-			var finish1 = Math.min(signal1.length-1, n + 1);
+			var finish1 = Math.min(signal1.length, n + 1);
 			var sum1 = 0;
 			for (m = start1; m < finish1; m++){
 				sum1 += signal1[m];
@@ -303,7 +303,7 @@ function dataProcess() {
 		var threshold = [0];
 		for (i = 0; i < signal.length; i++){
 			var start = Math.max(0, i - 25);
-			var finish = Math.min(signal.length-1, i + 25);
+			var finish = Math.min(signal.length, i + 25);
 			var sum = 0;
 			for (j = start; j < finish; j++){
 				sum += signal[j];
