@@ -290,8 +290,8 @@ function dataProcess() {
 		signal.splice(0,50);
 		var threshold = [0];
 		for (i = 0; i < signal.length; i++){
-			var start = Math.max(0, i - 50);
-			var finish = Math.min(signal.length, i + 50);
+			var start = Math.max(0, i - 25);
+			var finish = Math.min(signal.length, i + 25);
 			var sum = 0;
 			for (j = start; j < finish; j++){
 				sum += signal[j];
@@ -304,7 +304,7 @@ function dataProcess() {
 		for (k = 2; k < signal.length; k++){
 			if (signal[k] < signal[k-1]){
 				if (signal[k-2] < signal[k-1]){
-					if (signal[k-1] > threshold[j-1]){
+					if (signal[k-1] > threshold[k-1]){
 						if (k > peaks[peaks.length - 1] + window){
 							peaks.push(k-1);
 						}
