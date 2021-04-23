@@ -286,8 +286,19 @@ function dataProcess() {
 	
 	
 	
-	function findpeaks(signal,window){
-		signal.splice(0,50);
+	function findpeaks(signal1,window){
+		signal1.splice(0,50);
+		var signal = [0];
+		for (n = 0; n < signal1.length; n++){
+			var start1 = Math.max(0, n - 1);
+			var finish1 = Math.min(signal1.length, n + 1);
+			var sum1 = 0;
+			for (m = start1; m < finish1; m++){
+				sum1 += signal1[m];
+			}
+			var avg1 = sum1 / (finish1 - start1 + 1);
+			signal.push(avg1);
+		}
 		var threshold = [0];
 		for (i = 0; i < signal.length; i++){
 			var start = Math.max(0, i - 25);
