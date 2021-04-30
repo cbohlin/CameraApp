@@ -340,3 +340,16 @@ function dataProcess() {
     	HR.innerHTML = String(HeartRate).concat(' bpm');
 	
 }
+
+// function AFD(pulse_t,pulse_n) {
+// 	var pulse_t = [0];
+// 	for (i = 0; i < locs.length; i++){
+// 		pulse_t = locs[i] * 100 / 3;
+// 	}
+// 	pulse_n = locs.length;
+// 	return result;
+// }
+
+
+
+
