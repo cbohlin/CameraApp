@@ -336,7 +336,7 @@ function dataProcess() {
     	for (k = 0; k < RR.length; k++){
         	total += RR[k];
     	}
-    	var HeartRate = 1800 * RR.length / total;
+    	var HeartRate = Math.round(1800 * RR.length / total);
     	HR.innerHTML = String(HeartRate).concat(' bpm');
 	
 }
