@@ -11,6 +11,7 @@ var prevRed = 0;
 var Finger = 0;
 var RedAv = [];
 var RedAvFilt = [];
+var locs = [];
 var Fin = 0;
 var FR;
 var FPS
@@ -165,6 +166,7 @@ function ImStream(){
                     Finger = 0;
                     RedAv = [];
                     RedAvFilt = [];
+		    locs = [];
                     waveData = ctxWave.createImageData(Wave.width, Wave.height);
                 }
                 else{
