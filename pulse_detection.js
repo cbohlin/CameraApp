@@ -350,7 +350,7 @@ function dataProcess() {
         	total += RR[k];
     	}
     	var HeartRate = Math.round(1800 * RR.length / total);
-    	HR.innerHTML = String(locs).concat(' bpm');
+    	HR.innerHTML = String(Locs).concat(' bpm');
 	
 }
 
