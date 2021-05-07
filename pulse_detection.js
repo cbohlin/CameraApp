@@ -152,6 +152,7 @@ function ImStream(){
                 Finger = 0;
                 RedAv = [];
                 RedAvFilt = [];
+		locs = [];
                 waveData = ctxWave.createImageData(Wave.width, Wave.height);
                 
             }
@@ -182,7 +183,15 @@ function ImStream(){
                 RedAvFilt[0] = B[0] * RedAv[n-2];
                 RedAvFilt[1] = B[0] * RedAv[n-1] + B[1] * RedAv[n-2] - A[1] * RedAvFilt[0];
                 RedAvFilt[n] = B[0] * RedAv[n] + B[1] * RedAv[n-1] + B[2] * RedAv[n-2] - A[1] * RedAvFilt[n-1] - A[2] * RedAvFilt[n-2];
-                    
+		if (RedAvFilt[n] < RedAvFilt[n-1]){
+			if (RedAvFilt[n-2] < RedAvFilt[n-1]){
+				if (RedAvFilt[n-1] > 0.3){
+					if (n > locs[locs.length - 1] + 15){
+							locs.push(n-1);
+					}
+				}
+			}
+		}
             }
 
             if (Finger >= Math.round((1)*FPS) && Finger<Math.round((2)*FPS)){
@@ -286,7 +295,7 @@ function dataProcess() {
 	
 	
 	
-	function findpeaks(signal1,window){
+/*	function findpeaks(signal1,window){
 		signal1.splice(0,50);
 		var signal = [0];
 		for (n = 0; n < signal1.length; n++){
@@ -328,7 +337,8 @@ function dataProcess() {
 		return peaks;
 	}
     	var locs = findpeaks(RedAvFilt,15);
-    	var RR = [locs[1]-locs[0]];
+*/    	locs.shift();
+	var RR = [locs[1]-locs[0]];
     	for (j = 2; j < locs.length; j++){
         	RR.push(locs[j]-locs[j-1]);
     	}
@@ -337,7 +347,7 @@ function dataProcess() {
         	total += RR[k];
     	}
     	var HeartRate = Math.round(1800 * RR.length / total);
-    	HR.innerHTML = String(HeartRate).concat(' bpm');
+    	HR.innerHTML = String(locs).concat(' bpm');
 	
 }
 
