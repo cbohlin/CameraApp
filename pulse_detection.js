@@ -11,7 +11,7 @@ var prevRed = 0;
 var Finger = 0;
 var RedAv = [];
 var RedAvFilt = [];
-var locs = [];
+var Locs = [];
 var Fin = 0;
 var FR;
 var FPS
@@ -153,7 +153,7 @@ function ImStream(){
                 Finger = 0;
                 RedAv = [];
                 RedAvFilt = [];
-		locs = [];
+		Locs = [];
                 waveData = ctxWave.createImageData(Wave.width, Wave.height);
                 
             }
@@ -166,7 +166,7 @@ function ImStream(){
                     Finger = 0;
                     RedAv = [];
                     RedAvFilt = [];
-		    locs = [];
+		    Locs = [];
                     waveData = ctxWave.createImageData(Wave.width, Wave.height);
                 }
                 else{
@@ -185,16 +185,17 @@ function ImStream(){
                 RedAvFilt[0] = B[0] * RedAv[n-2];
                 RedAvFilt[1] = B[0] * RedAv[n-1] + B[1] * RedAv[n-2] - A[1] * RedAvFilt[0];
                 RedAvFilt[n] = B[0] * RedAv[n] + B[1] * RedAv[n-1] + B[2] * RedAv[n-2] - A[1] * RedAvFilt[n-1] - A[2] * RedAvFilt[n-2];
+		Locs[0] = 0;
 		if (RedAvFilt[n] < RedAvFilt[n-1]){
 			if (RedAvFilt[n-2] < RedAvFilt[n-1]){
 				if (RedAvFilt[n-1] > 0.3){
-					if (n > locs[locs.length - 1] + 15){
-							locs.push(n-1);
+					if (n > Locs[Locs.length - 1] + 15){
+						Locs.push(n-1);
 					}
 				}
 			}
 		}
-            }
+	    }
 
             if (Finger >= Math.round((1)*FPS) && Finger<Math.round((2)*FPS)){
                 Feedback.innerHTML = "3";
@@ -339,10 +340,10 @@ function dataProcess() {
 		return peaks;
 	}
     	var locs = findpeaks(RedAvFilt,15);
-*/    	locs.shift();
-	var RR = [locs[1]-locs[0]];
-    	for (j = 2; j < locs.length; j++){
-        	RR.push(locs[j]-locs[j-1]);
+*/    	Locs.shift();
+	var RR = [Locs[1]-Locs[0]];
+    	for (j = 2; j < Locs.length; j++){
+        	RR.push(Locs[j]-Locs[j-1]);
     	}
     	var total = 0;
     	for (k = 0; k < RR.length; k++){
