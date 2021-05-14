@@ -183,7 +183,7 @@ function ImStream(){
             }
             if (Finger >= Math.round((1)*FPS)){
                 RedAv.push(Red);
-                var n = Finger-75;
+                var n = Finger-28;
                 RedAvFilt[0] = B[0] * RedAv[n-2];
                 RedAvFilt[1] = B[0] * RedAv[n-1] + B[1] * RedAv[n-2] - A[1] * RedAvFilt[0];
                 RedAvFilt[n] = B[0] * RedAv[n] + B[1] * RedAv[n-1] + B[2] * RedAv[n-2] - A[1] * RedAvFilt[n-1] - A[2] * RedAvFilt[n-2];
