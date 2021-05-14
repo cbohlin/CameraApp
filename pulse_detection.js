@@ -11,6 +11,8 @@ var prevRed = 0;
 var Finger = 0;
 var RedAv = [];
 var RedAvFilt = [];
+var signal = [];
+var threshold = [];
 var Locs = [];
 var Fin = 0;
 var FR;
@@ -185,10 +187,31 @@ function ImStream(){
                 RedAvFilt[0] = B[0] * RedAv[n-2];
                 RedAvFilt[1] = B[0] * RedAv[n-1] + B[1] * RedAv[n-2] - A[1] * RedAvFilt[0];
                 RedAvFilt[n] = B[0] * RedAv[n] + B[1] * RedAv[n-1] + B[2] * RedAv[n-2] - A[1] * RedAvFilt[n-1] - A[2] * RedAvFilt[n-2];
+		
+		signal[0] = [0];
+		var start1 = Math.max(0, n - 1);
+		var finish1 = Math.min(393, n + 1);
+		var sum1 = 0;
+		for (m = start1; m < finish1; m++){
+			sum1 += RedAvFilt[m];
+		}
+		var avg1 = sum1 / (finish1 - start1 + 1);
+		signal.push(avg1);
+		    
+		threshold[0] = 0;
+		var start = Math.max(0, n - 25);
+		var finish = Math.min(393, n + 25);
+		var sum = 0;
+		for (j = start; j < finish; j++){
+			sum += RedAvFilt[j];
+		}
+		var avg = sum / (finish - start + 1);
+		threshold.push(avg);
+		
 		Locs[0] = 0;
-		if (RedAvFilt[n] < RedAvFilt[n-1]){
-			if (RedAvFilt[n-2] < RedAvFilt[n-1]){
-				if (RedAvFilt[n-1] > 0.3){
+		if (signal[n] < signal[n-1]){
+			if (signal[n-2] < signal[n-1]){
+				if (signal[n-1] > signal[n-1]){
 					if (n > Locs[Locs.length - 1] + 15){
 						Locs.push(n-1);
 					}
@@ -350,7 +373,7 @@ function dataProcess() {
         	total += RR[k];
     	}
     	var HeartRate = Math.round(1800 * RR.length / total);
-    	HR.innerHTML = String(RedAv).concat(' bpm');
+    	HR.innerHTML = String(RedAvFilt).concat(' bpm');
 	
 }
 
