@@ -321,9 +321,9 @@ function dataProcess() {
 	
 	
 	
-	function findpeaks(signal1,window){
-		signal1.splice(0,50);
-		var signal = [0];
+	function findpeaks(signal,window){
+		signal.splice(0,50);
+		/*var signal = [0];
 		for (n = 0; n < signal1.length; n++){
 			var start1 = Math.max(0, n - 1);
 			var finish1 = Math.min(signal1.length, n + 1);
@@ -334,7 +334,7 @@ function dataProcess() {
 			var avg1 = sum1 / (finish1 - start1 + 1);
 			signal.push(avg1);
 		}
-		signal.shift();
+		signal.shift();*/
 		var threshold = [0];
 		for (i = 0; i < signal.length; i++){
 			var start = Math.max(0, i - 25);
@@ -348,12 +348,14 @@ function dataProcess() {
 		}
 		threshold.shift();
 		var peaks = [0];
-		for (k = 2; k < signal.length; k++){
-			if (signal[k] < signal[k-1]){
-				if (signal[k-2] < signal[k-1]){
-					if (signal[k-1] > threshold[k-1]){
-						if (k > peaks[peaks.length - 1] + window){
-							peaks.push(k-1);
+		for (k = 3; k < signal.length; k++){
+			if (signal[k-2] < signal[k-3]){
+				if (k-3 > peaks[peaks.length - 1] + window){
+					if (signal[k-1] < signal[k-3]){
+						if (signal[k] < signal[k-3]){
+							if (signal[k-3] > threshold[k-3]){
+								peaks.push(k-3);
+							}
 						}
 					}
 				}
