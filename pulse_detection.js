@@ -384,7 +384,7 @@ function dataProcess() {
 		const theWin=7, theDivisor=28, theMax=Math.floor(pulse_n/theWin); // Currently set at values for a window of 7
 		const aLoc = Math.floor(theWin/2);
 
-		let inData = Array(pulse_t.map(x => x-1), rrs = Array(theWin), outData = Array(Math.floor((pulse_n-1)/theWin));
+		let inData = Array(pulse_n-1), rrs = Array(theWin), outData = Array(Math.floor((pulse_n-1)/theWin));
 		let I, m, j;
 
 
