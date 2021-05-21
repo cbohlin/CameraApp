@@ -485,7 +485,7 @@ function dataProcess() {
 
 
 		outData = outData.sort();
-		Return (outData[Math.floor(theMax/2)] - 3.5); // where result is a number which indicates how likely this is AF, with numbers > 0 indicating likely, < 0 unlikely
+		return (outData[Math.floor(theMax/2)] - 3.5); // where result is a number which indicates how likely this is AF, with numbers > 0 indicating likely, < 0 unlikely
 	}
 	var pulse_t = [0]; // pulse_t is an array of times of arrival of the pulses in milliseconds
 		for (i = 0; i < Locs.length; i++){
