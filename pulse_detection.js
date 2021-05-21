@@ -380,7 +380,7 @@ function dataProcess() {
 
 	function AFD(pulse_t,pulse_n) {
 		const theWin=7, theDivisor=28, theMax=Math.floor(pulse_n/theWin); // Currently set at values for a window of 7
-		const aLoc = floor(theWin/2);
+		const aLoc = Math.floor(theWin/2);
 
 		let inData = Array(pulse_n-1), rrs = Array(theWin), outData = Array(Math.floor((pulse_t-1)/theWin));
 		let I, m, j;
@@ -485,7 +485,7 @@ function dataProcess() {
 
 
 		outData = outData.sort();
-		Return (outData[floor(theMax/2)] - 3.5); // where result is a number which indicates how likely this is AF, with numbers > 0 indicating likely, < 0 unlikely
+		Return (outData[Math.floor(theMax/2)] - 3.5); // where result is a number which indicates how likely this is AF, with numbers > 0 indicating likely, < 0 unlikely
 	}
 	var pulse_t = [0]; // pulse_t is an array of times of arrival of the pulses in milliseconds
 		for (i = 0; i < Locs.length; i++){
