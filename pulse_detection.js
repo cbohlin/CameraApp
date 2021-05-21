@@ -389,7 +389,7 @@ function dataProcess() {
 
 		i = 0;
 
-		while (i < n) { // n is the number of differences, which is -1 the number of values.
+		while (i < pulse_n - 1) { // n is the number of differences, which is -1 the number of values.
 
 			inData[i] = 60000.0 / (inData[i+1] - inData[i]); //Convert to instanationous HR
 
