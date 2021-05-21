@@ -377,10 +377,13 @@ function dataProcess() {
     	var HeartRate = Math.round(1800 * RR.length / total);
     	HR.innerHTML = String(Locs).concat(' bpm');
 	
-	var pulse_t = Locs.map(x => x * 100 / 3); // pulse_t is an array of times of arrival of the pulses in milliseconds
+	var pulse_t = [0]; // pulse_t is an array of times of arrival of the pulses in milliseconds
+	for (i = 0; i < Locs.length; i++){
+		pulse_t[i] = Locs[i] * 100 / 3;
+	}
 	var pulse_n = Locs.length; // pulse_n is the number of pulse arrival times in the array.
 	
-	function AFD(pulse_t,pulse_n) {
+	function AFD(pulse_t,pulse_n){
 		const theWin=7, theDivisor=28, theMax=Math.floor(pulse_n/theWin); // Currently set at values for a window of 7
 		const aLoc = Math.floor(theWin/2);
 
