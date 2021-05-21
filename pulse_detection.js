@@ -377,19 +377,21 @@ function dataProcess() {
     	var HeartRate = Math.round(1800 * RR.length / total);
     	HR.innerHTML = String(Locs).concat(' bpm');
 	
-
+	var pulse_t = Locs.map(x => x * 100 / 3); // pulse_t is an array of times of arrival of the pulses in milliseconds
+	var pulse_n = Locs.length; // pulse_n is the number of pulse arrival times in the array.
+	
 	function AFD(pulse_t,pulse_n) {
 		const theWin=7, theDivisor=28, theMax=Math.floor(pulse_n/theWin); // Currently set at values for a window of 7
 		const aLoc = Math.floor(theWin/2);
 
-		let inData = Array(pulse_n-1), rrs = Array(theWin), outData = Array(Math.floor((pulse_t-1)/theWin));
+		let inData = Array(pulse_t.map(x => x-1), rrs = Array(theWin), outData = Array(Math.floor((pulse_n-1)/theWin));
 		let I, m, j;
 
 
 
 		i = 0;
 
-		while (i < pulse_n.length - 1) { // n is the number of differences, which is -1 the number of values.
+		while (i < pulse_n - 1) { // n is the number of differences, which is -1 the number of values.
 
 			inData[i] = 60000.0 / (inData[i+1] - inData[i]); //Convert to instanationous HR
 
@@ -487,11 +489,7 @@ function dataProcess() {
 		outData = outData.sort();
 		return (outData[Math.floor(theMax/2)] - 3.5); // where result is a number which indicates how likely this is AF, with numbers > 0 indicating likely, < 0 unlikely
 	}
-	var pulse_t = [0]; // pulse_t is an array of times of arrival of the pulses in milliseconds
-		for (i = 0; i < Locs.length; i++){
-			pulse_t = Locs[i] * 100 / 3;
-		}
-	var pulse_n = Locs.length; // pulse_n is the number of pulse arrival times in the array.
+	
 	var AF = AFD(pulse_t,pulse_n);
 }
 
