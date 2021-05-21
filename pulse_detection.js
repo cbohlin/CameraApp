@@ -188,7 +188,7 @@ function ImStream(){
                 RedAvFilt[1] = B[0] * RedAv[n-1] + B[1] * RedAv[n-2] - A[1] * RedAvFilt[0];
                 RedAvFilt[n] = B[0] * RedAv[n] + B[1] * RedAv[n-1] + B[2] * RedAv[n-2] - A[1] * RedAvFilt[n-1] - A[2] * RedAvFilt[n-2];
 		
-		signal[0] = [0];
+		/*signal[0] = [0];
 		var start1 = Math.max(0, n - 1);
 		var finish1 = Math.min(393, n + 1);
 		var sum1 = 0;
@@ -217,7 +217,7 @@ function ImStream(){
 					}
 				}
 			}
-		}
+		}*/
 	    }
 
             if (Finger >= Math.round((1)*FPS) && Finger<Math.round((2)*FPS)){
@@ -321,7 +321,7 @@ function dataProcess() {
 	
 	
 	
-/*	function findpeaks(signal1,window){
+	function findpeaks(signal1,window){
 		signal1.splice(0,50);
 		var signal = [0];
 		for (n = 0; n < signal1.length; n++){
@@ -362,8 +362,8 @@ function dataProcess() {
 		peaks.shift();
 		return peaks;
 	}
-    	var locs = findpeaks(RedAvFilt,15);
-*/    	Locs.shift();
+    	var Locs = findpeaks(RedAvFilt,15);
+//    	Locs.shift();
 	var RR = [Locs[1]-Locs[0]];
     	for (j = 2; j < Locs.length; j++){
         	RR.push(Locs[j]-Locs[j-1]);
