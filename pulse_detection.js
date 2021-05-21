@@ -377,14 +377,120 @@ function dataProcess() {
 	
 }
 
-// function AFD(pulse_t,pulse_n) {
-// 	var pulse_t = [0];
-// 	for (i = 0; i < locs.length; i++){
-// 		pulse_t = locs[i] * 100 / 3;
-// 	}
-// 	pulse_n = locs.length;
-// 	return result;
-// }
+function AFD(pulse_t,pulse_n) {
+	var pulse_t = [0]; // pulse_t is an array of times of arrival of the pulses in milliseconds
+	for (i = 0; i < Locs.length; i++){
+		pulse_t = Locs[i] * 100 / 3;
+	}
+	pulse_n = Locs.length; // pulse_n is the number of pulse arrival times in the array. 
+	const theWin=7, theDivisor=28, theMax=floor(pulse_n/theWin); // Currently set at values for a window of 7
+	const aLoc = floor(theWin/2);
+
+	let inData = Array(pulse_n-1), rrs = Array(theWindow), outData = Array(floor((pulse-1)/theWindow)));;
+	let I, m, j;
+
+
+
+	i = 0;
+
+	while (i < n) { // n is the number of differences, which is -1 the number of values.
+
+		inData[i] = 60000.0 / (inData[i+1] - inData[i]); //Convert to instanationous HR
+
+		i++;
+
+	}
+
+	m = 0;
+
+	j = 0;
+
+	while (m < theMax) {
+
+		for (i = 0; i < theWindow; i++) { // Move data to buffer
+
+			rrs[i] = inData[i+j];
+
+		}
+
+
+
+
+		ave = 0.0;
+
+		for (i = 0; i < theWindow; i++) { //Calculate the summ
+
+			ave = ave + rrs[i];
+
+		}
+
+
+
+
+		ave = ave / theWindow; // calculate the average
+
+ 
+
+		for (i = 0; i < theWindow; i++) { // Subtract it
+
+			rrs[i] = rrs[i] - ave;
+
+		}
+
+ 
+
+		//add code for detrending for window of DTL 9/16/2005
+
+		ave = 0.0;
+
+		for (i = 0; i < theWindow; i++) {
+
+			ave = ave + rrs[i] * (aLoc-i);
+
+		}
+
+		ave = ave / theDivisor;
+
+
+		for (i = 0; i < theWindow; i++) {
+
+			rrs[i] = rrs[i] + ave * (i-aLoc);
+
+		}
+
+ 
+
+		val = 0.0;
+
+		for (i = 0; i < theWindow; i++) {
+
+			rrs[i] = Math.abs(rrs[i]);
+
+		}
+
+
+
+
+		rrs = rrs.sort(); // This replaces the bubble sort below
+
+ 
+
+		outData[m++] = rrs[aLoc];
+
+
+
+
+		j = j + theWindow;
+
+		m++;
+
+	}
+
+
+
+	outData = outData.sort();
+	Return (outData[floor(theMax/2)] - 3.5); // where result is a number which indicates how likely this is AF, with numbers > 0 indicating likely, < 0 unlikely
+}
 
 
 
