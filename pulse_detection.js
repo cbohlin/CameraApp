@@ -395,7 +395,7 @@ function dataProcess() {
 
 		while (i < pulse_n - 1) { // n is the number of differences, which is -1 the number of values.
 
-			inData[i] = 60000.0 / (pulse_t[i+1] - pulse_t[i]); //Convert to instanationous HR
+			inData[i] = 60000.0 / (pulse_t[i+1] - pulse_t[i]); //Convert to instantanious HR
 
 			i++;
 
