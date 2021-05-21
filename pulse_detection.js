@@ -375,7 +375,6 @@ function dataProcess() {
         	total += RR[k];
     	}
     	var HeartRate = Math.round(1800 * RR.length / total);
-    	HR.innerHTML = String(Locs).concat(' bpm');
 	
 	var pulse_t = [0]; // pulse_t is an array of times of arrival of the pulses in milliseconds
 	for (i = 0; i < Locs.length; i++){
@@ -494,6 +493,7 @@ function dataProcess() {
 	}
 	
 	var AF = AFD(pulse_t,pulse_n);
+	HR.innerHTML = String(Locs).concat(' bpm');
 }
 
 
