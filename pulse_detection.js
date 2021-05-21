@@ -388,7 +388,7 @@ function AFD(pulse_t,pulse_n) {
 	const theWin=7, theDivisor=28, theMax=floor(pulse_n/theWin); // Currently set at values for a window of 7
 	const aLoc = floor(theWin/2);
 
-	let inData = Array(pulse_n-1), rrs = Array(theWindow), outData = Array(floor((pulse-1)/theWindow)));;
+	let inData = Array(pulse_n-1), rrs = Array(theWindow), outData = Array(floor((pulse-1)/theWindow));
 	let I, m, j;
 
 
