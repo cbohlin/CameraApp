@@ -403,7 +403,7 @@ function dataProcess() {
 			i++;
 
 		}
-		console.log(inData)
+		
 		m = 0;
 
 		j = 0;
@@ -488,11 +488,10 @@ function dataProcess() {
 			m++;
 
 		}
-console.log(outData)
+
 
 
 		outData = outData.sort();
-		console.log(outData)
 		return (outData[Math.floor(theMax/2)] - 3.5); // where result is a number which indicates how likely this is AF, with numbers > 0 indicating likely, < 0 unlikely
 	}
 	
