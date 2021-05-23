@@ -390,7 +390,7 @@ function dataProcess() {
 		const aLoc = Math.floor(theWin/2);
 
 		let inData = Array(pulse_n-1), rrs = Array(theWin), outData = Array(Math.floor((pulse_n-1)/theWin));
-		let I, m, j;
+		let i, m, j, ave, val;
 
 
 
