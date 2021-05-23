@@ -23,6 +23,9 @@ var Norm;
 var ctxWave ;
 var waveData ;
 var kik = 1;
+var pulse_t = [];
+var pulse_n = [];
+var AF = [];
 
 
 
@@ -364,7 +367,7 @@ function dataProcess() {
 		peaks.shift();
 		return peaks;
 	}
-    	var Locs = findpeaks(RedAvFilt,15);
+    	Locs = findpeaks(RedAvFilt,15);
 //    	Locs.shift();
 	var RR = [Locs[1]-Locs[0]];
     	for (j = 2; j < Locs.length; j++){
@@ -376,11 +379,11 @@ function dataProcess() {
     	}
     	var HeartRate = Math.round(1800 * RR.length / total);
 	
-	var pulse_t = [0]; // pulse_t is an array of times of arrival of the pulses in milliseconds
+	pulse_t = [0]; // pulse_t is an array of times of arrival of the pulses in milliseconds
 	for (i = 0; i < Locs.length; i++){
 		pulse_t[i] = Locs[i] * 100 / 3;
 	}
-	var pulse_n = Locs.length; // pulse_n is the number of pulse arrival times in the array.
+	pulse_n = Locs.length; // pulse_n is the number of pulse arrival times in the array.
 	
 	function AFD(pulse_t,pulse_n){
 		const theWin=7, theDivisor=28, theMax=Math.floor(pulse_n/theWin); // Currently set at values for a window of 7
@@ -492,7 +495,7 @@ function dataProcess() {
 		return (outData[Math.floor(theMax/2)] - 3.5); // where result is a number which indicates how likely this is AF, with numbers > 0 indicating likely, < 0 unlikely
 	}
 	
-	var AF = AFD(pulse_t,pulse_n);
+	AF = AFD(pulse_t,pulse_n);
 	HR.innerHTML = String(Locs).concat(' bpm');
 }
 
