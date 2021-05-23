@@ -403,7 +403,7 @@ function dataProcess() {
 			i++;
 
 		}
-		
+		console.log(inData)
 		m = 0;
 
 		j = 0;
@@ -488,7 +488,7 @@ function dataProcess() {
 			m++;
 
 		}
-
+console.log(outData)
 
 
 		outData = outData.sort();
