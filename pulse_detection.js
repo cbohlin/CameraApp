@@ -192,9 +192,9 @@ function ImStream(){
                 RedAvFilt[n] = B[0] * RedAv[n+FPS-2] + B[1] * RedAv[n+FPS-3] + B[2] * RedAv[n+FPS-4] - A[1] * RedAvFilt[n-1] - A[2] * RedAvFilt[n-2];
 		
 		
-		if (n >= 5*FPS or 150){
-			var start = n - 5/3 * FPS; Math.max(0, n - 25);
-			var finish = n; Math.min(393, n + 25);
+		if (n >= 5*FPS){
+			var start = n - 5/3 * FPS;
+			var finish = n;
 			var sum = 0;
 			for (j = n - 5/3 * FPS; j < n+1; j++){
 				sum += RedAvFilt[j];
