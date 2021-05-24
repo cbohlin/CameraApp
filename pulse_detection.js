@@ -362,6 +362,7 @@ function dataProcess() {
 	}
     	Locs = findpeaks(RedAvFilt,15);*/
 	locs.shift();
+	locs.shift();
 	var RR = [locs[1]-locs[0]];
     	for (j = 2; j < locs.length; j++){
         	RR.push(locs[j]-locs[j-1]);
