@@ -13,7 +13,7 @@ var RedAv = [];
 var RedAvFilt = [];
 var signal = [];
 var threshold = [];
-var Locs = [];
+var locs = [0];
 var Fin = 0;
 var FR;
 var FPS
@@ -181,61 +181,60 @@ function ImStream(){
                 }
                 
             }
-            if (Finger >= Math.round((0)*FPS) && Finger < Math.round((2)*FPS)){
+            if (Finger >= 0*FPS && Finger < 1*FPS){
                 RedAv.push(Red);
             }
-            if (Finger >= Math.round((2)*FPS)){
+            if (Finger >= 1*FPS){
                 RedAv.push(Red);
-                var n = Finger-FPS*2+2;
-                RedAvFilt[0] = B[0] * RedAv[FPS*2-2];
-                RedAvFilt[1] = B[0] * RedAv[FPS*2-1] + B[1] * RedAv[FPS*2-2] - A[1] * RedAvFilt[0];
+                var n = Finger-FPS+2;
+                RedAvFilt[0] = B[0] * RedAv[FPS-2];
+                RedAvFilt[1] = B[0] * RedAv[FPS-1] + B[1] * RedAv[FPS-2] - A[1] * RedAvFilt[0];
                 RedAvFilt[n] = B[0] * RedAv[n+FPS-2] + B[1] * RedAv[n+FPS-3] + B[2] * RedAv[n+FPS-4] - A[1] * RedAvFilt[n-1] - A[2] * RedAvFilt[n-2];
 		
-		/*
-		if (n > 49){
-			var start = Math.max(0, n - 25);
-			var finish = Math.min(393, n + 25);
+		
+		if (n >= 5*FPS or 150){
+			var start = n - 5/3 * FPS; Math.max(0, n - 25);
+			var finish = n; Math.min(393, n + 25);
 			var sum = 0;
-			for (j = start; j < finish; j++){
+			for (j = n - 5/3 * FPS; j < n+1; j++){
 				sum += RedAvFilt[j];
 			}
 			var avg = sum / (finish - start + 1);
 			threshold.push(avg);
-			if (signal[k-2] < signal[k-3]){
-				if (k-3 > peaks[peaks.length - 1] + window){
-					if (signal[k-1] < signal[k-3]){
-						if (signal[k] < signal[k-3]){
-							if (signal[k-3] > threshold[k-3]){
-								peaks.push(k-3);
+			if (locs[n - 5/6 * FPS + 1] < locs[n - 5/6 * FPS]){
+				if (n - 5/6 * FPS > locs[locs.length - 1] + FPS/2){
+					if (locs[n - 5/6 * FPS + 2] < locs[n - 5/6 * FPS]){
+						if (locs[n - 5/6 * FPS + 3] < locs[n - 5/6 * FPS]){
+							if (locs[n - 5/6 * FPS] > threshold[n - 5/6 * FPS]){
+								locs.push(n - 5/6 * FPS);
 							}
 						}
 					}
 				}
 			}
-		
-	    	}*/
+	    	}
 	    }
 
-            if (Finger >= Math.round((1)*FPS) && Finger<Math.round((2)*FPS)){
+            if (Finger >= 1*FPS && Finger < 2*FPS){
                 Feedback.innerHTML = "3";
             
             }
-            if (Finger >= Math.round((2)*FPS) && Finger<Math.round((3)*FPS)){
+            if (Finger >= 2*FPS && Finger < 3*FPS){
                 Feedback.innerHTML = "2";
                 
             }
-            if (Finger >= Math.round((3)*FPS) && Finger<Math.round((4)*FPS)){
+            if (Finger >= 3*FPS && Finger < 4*FPS){
                 Feedback.innerHTML = "1";
             
                 
             }
           
-            if (Finger >= Math.round((4)*FPS) && Finger<Math.round((14))*FPS){
+            if (Finger >= 4*FPS && Finger < 35*FPS){
                 Feedback.innerHTML = "Collecting . . .";
                 
                 
                 
-                if (Finger >= (Math.round((4)*FPS))+1){
+                if (Finger >= 4*FPS+1){
                     function paintPix(x,y){
 
                         var Index = ((y*400) + x) * 4;
@@ -275,8 +274,7 @@ function ImStream(){
 
 
             
-            else if (Finger >= 420){
-                RedAv = RedAv.slice(120,420);
+            else if (Finger >= 35*FPS){
                 Feedback.innerHTML = "Done";
                 waveData = ctxWave.createImageData(Wave.width, Wave.height);
                 const doneEvent = new Event('doneEvent');
@@ -317,9 +315,9 @@ function dataProcess() {
 	
 	
 	
-	function findpeaks(signal,window){
+	/*function findpeaks(signal,window){
 		signal.splice(0,50);
-		/*var signal = [0];
+		//var signal = [0];
 		for (n = 0; n < signal1.length; n++){
 			var start1 = Math.max(0, n - 1);
 			var finish1 = Math.min(signal1.length, n + 1);
@@ -330,7 +328,7 @@ function dataProcess() {
 			var avg1 = sum1 / (finish1 - start1 + 1);
 			signal.push(avg1);
 		}
-		signal.shift();*/
+		signal.shift();//
 		var threshold = [0];
 		for (i = 0; i < signal.length; i++){
 			var start = Math.max(0, i - 25);
@@ -360,11 +358,11 @@ function dataProcess() {
 		peaks.shift();
 		return peaks;
 	}
-    	Locs = findpeaks(RedAvFilt,15);
-//    	Locs.shift();
-	var RR = [Locs[1]-Locs[0]];
-    	for (j = 2; j < Locs.length; j++){
-        	RR.push(Locs[j]-Locs[j-1]);
+    	Locs = findpeaks(RedAvFilt,15);*/
+	locs.shift();
+	var RR = [locs[1]-locs[0]];
+    	for (j = 2; j < locs.length; j++){
+        	RR.push(locs[j]-locs[j-1]);
     	}
     	var total = 0;
     	for (k = 0; k < RR.length; k++){
@@ -373,10 +371,10 @@ function dataProcess() {
     	var HeartRate = Math.round(1800 * RR.length / total);
 	
 	pulse_t = [0]; // pulse_t is an array of times of arrival of the pulses in milliseconds
-	for (i = 0; i < Locs.length; i++){
+	for (i = 0; i < locs.length; i++){
 		pulse_t[i] = Locs[i] * 100 / 3;
 	}
-	pulse_n = Locs.length; // pulse_n is the number of pulse arrival times in the array.
+	pulse_n = locs.length; // pulse_n is the number of pulse arrival times in the array.
 	
 	function AFD(pulse_t,pulse_n){
 		const theWin=7, theDivisor=28, theMax=Math.floor(pulse_n/theWin); // Currently set at values for a window of 7
