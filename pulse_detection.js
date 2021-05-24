@@ -361,7 +361,7 @@ function dataProcess() {
 		return peaks;
 	}
     	Locs = findpeaks(RedAvFilt,15);*/
-	//locs.shift();
+	locs.shift();
 	var RR = [locs[1]-locs[0]];
     	for (j = 2; j < locs.length; j++){
         	RR.push(locs[j]-locs[j-1]);
@@ -372,7 +372,7 @@ function dataProcess() {
     	}
     	var HeartRate = Math.round(1800 * RR.length / total);
 	
-	/*pulse_t = [0]; // pulse_t is an array of times of arrival of the pulses in milliseconds
+	pulse_t = [0]; // pulse_t is an array of times of arrival of the pulses in milliseconds
 	for (i = 0; i < locs.length; i++){
 		pulse_t[i] = Locs[i] * 100 / 3;
 	}
@@ -489,7 +489,7 @@ function dataProcess() {
 	}
 	
 	AF = AFD(pulse_t,pulse_n);*/
-	HR.innerHTML = String(RedAvFilt).concat(' bpm');
+	HR.innerHTML = String(locs).concat(' bpm');
 }
 
 
