@@ -12,7 +12,7 @@ var Finger = 0;
 var RedAv = [];
 var RedAvFilt = [];
 var signal = [];
-var threshold = [];
+var threshold = [0,0];
 var locs = [0];
 var Fin = 0;
 var FR;
@@ -191,7 +191,7 @@ function ImStream(){
                 RedAvFilt[1] = B[0] * RedAv[FPS-1] + B[1] * RedAv[FPS-2] - A[1] * RedAvFilt[0];
                 RedAvFilt[n] = B[0] * RedAv[n+FPS-2] + B[1] * RedAv[n+FPS-3] + B[2] * RedAv[n+FPS-4] - A[1] * RedAvFilt[n-1] - A[2] * RedAvFilt[n-2];
 		
-		if (n < 5*FPS - 5/3 * FPS){
+		if (n < 5*FPS - 5/6 * FPS){
 			threshold.push(0);
 		}
 		if (n >= 5*FPS){
