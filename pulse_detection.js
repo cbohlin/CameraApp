@@ -487,7 +487,7 @@ function dataProcess() {
 	}
 	
 	AF = AFD(pulse_t,pulse_n);
-	HR.innerHTML = String(Locs).concat(' bpm');
+	HR.innerHTML = String(RedAvFilt).concat(' bpm');
 }
 
 
