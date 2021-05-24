@@ -370,7 +370,7 @@ function dataProcess() {
     	}
     	var HeartRate = Math.round(1800 * RR.length / total);
 	
-	pulse_t = [0]; // pulse_t is an array of times of arrival of the pulses in milliseconds
+	/*pulse_t = [0]; // pulse_t is an array of times of arrival of the pulses in milliseconds
 	for (i = 0; i < locs.length; i++){
 		pulse_t[i] = Locs[i] * 100 / 3;
 	}
@@ -486,7 +486,7 @@ function dataProcess() {
 		return (outData[Math.floor(theMax/2)] - 3.5); // where result is a number which indicates how likely this is AF, with numbers > 0 indicating likely, < 0 unlikely
 	}
 	
-	AF = AFD(pulse_t,pulse_n);
+	AF = AFD(pulse_t,pulse_n);*/
 	HR.innerHTML = String(RedAvFilt).concat(' bpm');
 }
 
