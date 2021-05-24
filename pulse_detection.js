@@ -201,11 +201,11 @@ function ImStream(){
 			}
 			var avg = sum / (finish - start + 1);
 			threshold.push(avg);
-			if (locs[n - 5/6 * FPS + 1] < locs[n - 5/6 * FPS]){
+			if (RedAvFilt[n - 5/6 * FPS + 1] < RedAvFilt[n - 5/6 * FPS]){
 				if (n - 5/6 * FPS > locs[locs.length - 1] + FPS/2){
-					if (locs[n - 5/6 * FPS + 2] < locs[n - 5/6 * FPS]){
-						if (locs[n - 5/6 * FPS + 3] < locs[n - 5/6 * FPS]){
-							if (locs[n - 5/6 * FPS] > threshold[n - 5/6 * FPS]){
+					if (RedAvFilt[n - 5/6 * FPS + 2] < RedAvFilt[n - 5/6 * FPS]){
+						if (RedAvFilt[n - 5/6 * FPS + 3] < RedAvFilt[n - 5/6 * FPS]){
+							if (RedAvFilt[n - 5/6 * FPS] > threshold[n - 5/6 * FPS]){
 								locs.push(n - 5/6 * FPS);
 							}
 						}
