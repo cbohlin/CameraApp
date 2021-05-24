@@ -181,46 +181,39 @@ function ImStream(){
                 }
                 
             }
-            if (Finger >= Math.round((0)*FPS) && Finger < Math.round((1)*FPS)){
+            if (Finger >= Math.round((0)*FPS) && Finger < Math.round((2)*FPS)){
                 RedAv.push(Red);
             }
-            if (Finger >= Math.round((1)*FPS)){
+            if (Finger >= Math.round((2)*FPS)){
                 RedAv.push(Red);
-                var n = Finger-28;
-                RedAvFilt[0] = B[0] * RedAv[0];
-                RedAvFilt[1] = B[0] * RedAv[1] + B[1] * RedAv[0] - A[1] * RedAvFilt[0];
-                RedAvFilt[n] = B[0] * RedAv[n] + B[1] * RedAv[n-1] + B[2] * RedAv[n-2] - A[1] * RedAvFilt[n-1] - A[2] * RedAvFilt[n-2];
+                var n = Finger-FPS*2+2;
+                RedAvFilt[0] = B[0] * RedAv[FPS*2-2];
+                RedAvFilt[1] = B[0] * RedAv[FPS*2-1] + B[1] * RedAv[FPS*2-2] - A[1] * RedAvFilt[0];
+                RedAvFilt[n] = B[0] * RedAv[n+FPS-2] + B[1] * RedAv[n+FPS-3] + B[2] * RedAv[n+FPS-4] - A[1] * RedAvFilt[n-1] - A[2] * RedAvFilt[n-2];
 		
-		/*signal[0] = [0];
-		var start1 = Math.max(0, n - 1);
-		var finish1 = Math.min(393, n + 1);
-		var sum1 = 0;
-		for (m = start1; m < finish1; m++){
-			sum1 += RedAvFilt[m];
-		}
-		var avg1 = sum1 / (finish1 - start1 + 1);
-		signal.push(avg1);
-		    
-		threshold[0] = 0;
-		var start = Math.max(0, n - 25);
-		var finish = Math.min(393, n + 25);
-		var sum = 0;
-		for (j = start; j < finish; j++){
-			sum += RedAvFilt[j];
-		}
-		var avg = sum / (finish - start + 1);
-		threshold.push(avg);
-		
-		Locs[0] = 0;
-		if (signal[n] < signal[n-1]){
-			if (signal[n-2] < signal[n-1]){
-				if (signal[n-1] > signal[n-1]){
-					if (n > Locs[Locs.length - 1] + 15){
-						Locs.push(n-1);
+		/*
+		if (n > 49){
+			var start = Math.max(0, n - 25);
+			var finish = Math.min(393, n + 25);
+			var sum = 0;
+			for (j = start; j < finish; j++){
+				sum += RedAvFilt[j];
+			}
+			var avg = sum / (finish - start + 1);
+			threshold.push(avg);
+			if (signal[k-2] < signal[k-3]){
+				if (k-3 > peaks[peaks.length - 1] + window){
+					if (signal[k-1] < signal[k-3]){
+						if (signal[k] < signal[k-3]){
+							if (signal[k-3] > threshold[k-3]){
+								peaks.push(k-3);
+							}
+						}
 					}
 				}
 			}
-		}*/
+		
+	    	}*/
 	    }
 
             if (Finger >= Math.round((1)*FPS) && Finger<Math.round((2)*FPS)){
