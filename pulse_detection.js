@@ -490,7 +490,7 @@ function dataProcess() {
 	}
 	
 	AF = AFD(pulse_t,pulse_n);
-	HR.innerHTML = String(locs).concat(' bpm');
+	HR.innerHTML = String(HeartRate).concat(' bpm');
 }
 
 
