@@ -1,62 +1,169 @@
 <!doctype html>
-<html lang=”en”>
+
+<html lang="en">
 <head>
-<link rel="manifest" href="/manifest.json" />
-<meta charset="utf-8">
-<meta http-equiv="x-ua-compatible" content="ie=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-
-
-<!-- Title -->
-<title>Pulse Detection App</title> 
-
-<!-- Style Sheet-->
-<link rel="stylesheet" href="style.css"> 
-</head noscroll>
-<body noscroll>
-
-<!-- Pulse Detection -->
-<main>
-
-    <!-- Camera view -->
-    <video id="view" autoplay playsinline></video>
     
-    <!--Canvas-->
-    <canvas id="canvas"></canvas>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, intial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+    <title>Mobile Test</title>
+    <link rel="manifest" href="manifest.webmanifest" />
+ 
+
+    <link rel="stylesheet" href="nav.css">
+    <link rel="stylesheet" href="video.css">
+    <link rel="stylesheet" href="graphics.css">
+    <link rel="stylesheet" href="heartLoader.css">
+  
+
+    
+    
 
 
-    <!--Pulse Waveform-->
-    <canvas id="wave"></canvas>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    
+</head>
+
+<body noscroll>
+    <!--Hidden Video-->
+    <div id = "video-space">
+        <!--Canvas-->
+        <canvas id="camera-canvas"></canvas>
+        
+
+    
+
+    </div>
 
 
-    <!-- Feedback -->
-    <p id="feedback"></p>
 
-    <!-- Restart -->
-    <button id="restart">Restart</button>
+    
 
-    <!-- Heart Rate -->
-    <p id="HR"></p>
+    <!--Main App Space-->
+    <div id = "main-space">
+        
+        <div id="header-bar">
+            <object id="afid-logo" data="AFiD_Logo.png" type="image/png"></object>
+           
+           <div id="data-space">
 
-</main>
+                <span id="heart-icon" class="material-icons">favorite</span>
+                <!-- Heart Rate -->
+                <div id="HR">
+                     bpm
+                </div>
 
-<!-- Java Script -->
+                <span id="rhythm-icon" class="material-icons">favorite</span>
+                <!-- Heart Rate -->
+                <div id="rhythm">
+                     Rhythm
+                </div>
+            </div>
+           
+
+        </div>
+
+        <!--Pulse Waveform-->
+        <canvas id="wave"></canvas>
+
+        
+
+        <!-- Indicator -->
+        <div id="indicator">
+            
+
+            
+        </div>
+
+        
+
+        
+
+        <div id = "app-space">
+        
+
+            <div id='feedback-space'>
+                <video id="camera-view" autoplay playsinline></video>
+
+                <div id="loader">
+
+                
+                    
+                    <span id="checkingIcon" class="material-icons">rotate_right</span>
+                    <span id="loaderIcon" class="material-icons">motion_photos_on</span>
+                    <span id="doneIcon" class="material-icons">check_circle</span>
+                </div>
+                
+    
+                <!-- Feedback -->
+                <div id="feedback"></div>
+                <div id="feedback-color"></div>
+            </div>
+
+            <div id="finger-animation">
+                <span id="finger-icon" class="material-icons">touch_app</span>
+                <span id="phone-icon" class="material-icons">phone_iphone</span>
+                <div id="camera-circle"></div>
+
+
+            </div>
+
+            
+            
+        </div>
+
+        
+        
+    
+    </div>
+
+
+    
+        
+
+    <div id = "tool-bar">
+        <button id = "restart-button">
+            <span class="material-icons">
+                restart_alt
+                </span>
+        </button>
+        <button id = "help-button">
+            <span class="material-icons">
+                help
+                </span>
+        </button>
+
+        <button id = "data-button">
+            <span class="material-icons">
+                timeline
+                </span>
+        </button>
+            
+
+    </div>
+
+    <div id="pre-loader">
+        <object id="afid-logoLoad" data="AFiD_Logo.png" type="image/png"></object>
+    </div>
+
+
+
+
 <script>
     if (!navigator.serviceWorker.controller) {
         navigator.serviceWorker.register("/service-worker.js").then(function(reg) {
             console.log("Service worker has been registered for scope: " + reg.scope);
         });
     }
-</script>
-<script>
-    if (!navigator.serviceWorker.controller) {
-        navigator.serviceWorker.register("service-worker.js").then(function(reg) {
-            console.log("Service worker has been registered for scope: " + reg.scope);
-        });
-    }
-</script>
 
-<script src="pulse_detection.js"></script> 
+    
+</script>   
+<script src = "pulse_detection.js" ></script>
+<script src = "service-worker.js" ></script>
+
+
 </body>
 </html>
