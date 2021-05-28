@@ -371,7 +371,7 @@ function dataProcess() {
     	for (k = 0; k < RR.length; k++){
         	total += RR[k];
     	}
-    	var HeartRate = Math.round(1800 * RR.length / total);
+    	var HeartRate = Math.round(60 * FPS * RR.length / total);
 	
 	pulse_t = [0]; // pulse_t is an array of times of arrival of the pulses in milliseconds
 	for (i = 0; i < locs.length; i++){
