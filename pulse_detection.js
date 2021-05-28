@@ -453,7 +453,7 @@ function dataProcess() {
   for (k = 0; k < RR.length; k++){
       total += RR[k];
   }
-  var HeartRate = Math.round(1800 * RR.length / total);
+  var HeartRate = Math.round(60 * FPS * RR.length / total);
 
   pulse_t = [0]; // pulse_t is an array of times of arrival of the pulses in milliseconds
 	for (i = 0; i < locs.length; i++){
@@ -553,7 +553,7 @@ function dataProcess() {
 
 
 			rrs = rrs.sort(); // This replaces the bubble sort below
-      console.log(rrs);
+
 
  
 
@@ -569,9 +569,9 @@ function dataProcess() {
 		}
 
     
-    console.log(outData);
+
 		outData = outData.sort();
-    console.log(outData);
+
 		return (outData[Math.floor(theMax/2)] - 3.5); // where result is a number which indicates how likely this is AF, with numbers > 0 indicating likely, < 0 unlikely
 	}
 	AF = AFD(pulse_t,pulse_n);
