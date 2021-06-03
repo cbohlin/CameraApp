@@ -457,7 +457,7 @@ function dataProcess() {
 
   pulse_t = [0]; // pulse_t is an array of times of arrival of the pulses in milliseconds
 	for (i = 0; i < locs.length; i++){
-		pulse_t[i] = locs[i] * 100 / 3;
+		pulse_t[i] = locs[i] * 1000 / FPS;
 	}
 	pulse_n = locs.length; // pulse_n is the number of pulse arrival times in the array.
 	
