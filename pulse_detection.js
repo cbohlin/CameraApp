@@ -311,7 +311,7 @@ function ImStream(){
         if (RedAvFilt[n - 5/6 * FPS] > threshold[n - 5/6 * FPS]){
 	  if (n - 5/6 * FPS > locs[locs.length - 1] + FPS/2){
 	    if (RedAvFilt[n - 5/6 * FPS + 1] < RedAvFilt[n - 5/6 * FPS]){
-	      if (RedAvFilt[n - 5/6 * FPS] > Math.max(RedAvFilt.slice((n - 5/6 * FPS), (n - FPS/2)))){
+	      if (RedAvFilt[n - 5/6 * FPS] > Math.max(...RedAvFilt.slice((n - 5/6 * FPS), (n - FPS/2)))){
                   locs.push(n - 5/6 * FPS);
               }
             }
