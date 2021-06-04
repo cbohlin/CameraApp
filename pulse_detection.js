@@ -642,7 +642,7 @@ function dataProcess() {
 
 
 			rrs = rrs.sort(); // This replaces the bubble sort below
-      console.log(rrs);
+
 
  
 
@@ -658,16 +658,16 @@ function dataProcess() {
 		}
 
     
-    console.log(outData);
+
 		outData = outData.sort();
-    console.log(outData);
+
 		return (outData[Math.floor(theMax/2)] - 3.5); // where result is a number which indicates how likely this is AF, with numbers > 0 indicating likely, < 0 unlikely
 	}
 	AF = AFD(pulse_t,pulse_n);
 
 
   //Displays whether the rhythm is AF or NSR
-  if (AF<=0){
+  if (AF <=0 ){
     rhythm.innerHTML = RedAv;
   }
   else if (AF > 0){
