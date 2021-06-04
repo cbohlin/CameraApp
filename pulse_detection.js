@@ -27,7 +27,7 @@ var AF = [];
 var signal = [];
 var threshold = [0,0];
 var locs = [0];
-var plotlocs = [0];
+//var plotlocs = [0];
 
 
 //Canvas Sizing and Plitting
