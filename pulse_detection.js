@@ -27,7 +27,6 @@ var AF = [];
 var signal = [];
 var threshold = [0,0];
 var locs = [0];
-var forward = [];
 //var plotlocs = [0];
 
 
@@ -312,8 +311,7 @@ function ImStream(){
         if (RedAvFilt[n - 5/6 * FPS] > threshold[n - 5/6 * FPS]){
 	  if (n - 5/6 * FPS > locs[locs.length - 1] + FPS/2){
 	    if (RedAvFilt[n - 5/6 * FPS + 1] < RedAvFilt[n - 5/6 * FPS]){
-	      forward = RedAvFilt.slice(n - 5/6 * FPS, n - FPS/2);
-	      if (RedAvFilt[n - 5/6 * FPS] > Math.max(...forward)){
+	      if (RedAvFilt[n - 5/6 * FPS] > Math.max.apply(Math,RedAvFilt.slice(n - 5/6 * FPS, n - FPS/2))){
                   locs.push(n - 5/6 * FPS);
               }
             }
