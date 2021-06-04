@@ -663,10 +663,10 @@ function dataProcess() {
 
   //Displays whether the rhythm is AF or NSR
   if (AF <=0 ){
-    rhythm.innerHTML = RedAv;
+    rhythm.innerHTML = locs;
   }
   else if (AF > 0){
-    rhythm.innerHTML = RedAv;
+    rhythm.innerHTML = locs;
 
   }
 
