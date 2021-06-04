@@ -311,6 +311,7 @@ function ImStream(){
 	  if (RedAvFilt[n - 5/6 * FPS + 1] < RedAvFilt[n - 5/6 * FPS]){
 	    if (n - 5/6 * FPS > locs[locs.length - 1] + FPS/2){
 	      //if (RedAvFilt[n - 5/6 * FPS] > Math.max.apply(Math,RedAvFilt.slice(n - 5/6 * FPS, n - FPS/2))){
+		//if (RedAvFilt[n - 5/6 * FPS] > Math.max(RedAvFilt[n - 5/6 * FPS],RedAvFilt[n - 5/6 * FPS+1],RedAvFilt[n - 5/6 * FPS+2],RedAvFilt[n - 5/6 * FPS+3],RedAvFilt[n - 5/6 * FPS+4],RedAvFilt[n - 5/6 * FPS+5],RedAvFilt[n - 5/6 * FPS+6],RedAvFilt[n - 5/6 * FPS+7],RedAvFilt[n - 5/6 * FPS+8],RedAvFilt[n - 5/6 * FPS+9])){
             	locs.push(n - 5/6 * FPS);
               }
 	    else if (n - 5/6 * FPS < locs[locs.length - 1] + FPS/3 && RedAvFilt[n - 5/6 * FPS] > RedAvFilt[locs[locs.length - 1]]){
