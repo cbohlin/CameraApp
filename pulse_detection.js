@@ -663,15 +663,15 @@ function dataProcess() {
 
   //Displays whether the rhythm is AF or NSR
   if (AF <=0 ){
-    rhythm.innerHTML = locs;
+    rhythm.innerHTML = "NSR";
   }
   else if (AF > 0){
-    rhythm.innerHTML = locs;
+    rhythm.innerHTML = "AF";
 
   }
 
   // Display Heart Rate
-  HR.innerHTML = String(RedAvFilt).concat(' bpm');
+  HR.innerHTML = String(HeartRate).concat(' bpm');
   
 
   // Saves data to local stroage for the data screen
