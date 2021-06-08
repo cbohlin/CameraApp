@@ -700,25 +700,12 @@ function dataProcess() {
 
 let csvContent = "data:text/csv;charset=utf-8,";
 
-RedAvFilt.forEach(function(red_value){
-    csvContent += red_value + ",";
-});
-var encodedUri = encodeURI(csvContent);
-var link = document.createElement("a");
-link.setAttribute("href", encodedUri);
-link.setAttribute("download", "signal.csv");
-document.body.appendChild(link);
-link.click();
+  csvContent += RedAvFilt + "\r\n" + locs;
 
-let csvlocs = "data:text/csv;charset=utf-8,";
-
-locs.forEach(function(red_value){
-    csvlocs += red_value + ",";
-});
-var encodedUri = encodeURI(csvlocs);
-var link = document.createElement("a");
-link.setAttribute("href", encodedUri);
-link.setAttribute("download", "locs.csv");
-document.body.appendChild(link);
-link.click();
+  var encodedUri = encodeURI(csvContent);
+  var link = document.createElement("a");
+  link.setAttribute("href", encodedUri);
+  link.setAttribute("download", "filtered_red.csv");
+  document.body.appendChild(link);
+  link.click();
 }
