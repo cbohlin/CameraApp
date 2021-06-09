@@ -527,8 +527,7 @@ window.addEventListener("doneEvent",dataProcess, false);
 
 function dataProcess() {
 
-  locs.shift();
-	locs.shift();
+  locs.splice(0,4);
   var RR = [locs[1]-locs[0]];
   for (j = 2; j < locs.length; j++){
       RR.push(locs[j]-locs[j-1]);
