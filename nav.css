@@ -60,6 +60,16 @@ body {
     object-fit: cover;
 }
 
+#download-button{
+    position: fixed;
+    border-radius: 10px;
+    border: 2px solid rgba(0, 0, 0, 0.4);
+    background-color: rgb(229, 240, 229);
+    height: 60px;
+    width: 60px;
+    left: 7.5%;
+}
+
 #switch-button {
     position: fixed;
     border-radius: 10px;
@@ -67,7 +77,7 @@ body {
     background-color: rgb(229, 240, 229);
     height: 60px;
     width: 60px;
-    left: 15%;
+    left: 30%;
     
 }
 
@@ -78,7 +88,7 @@ body {
     background-color: rgb(238, 228, 237);
     height: 60px;
     width: 60px;
-    left: 40%;
+    left: 52.5%;
     
 }
 
@@ -89,7 +99,7 @@ body {
     background-color: rgb(228, 232, 238);
     height: 60px;
     width: 60px;
-    left: 65%;
+    left: 75%;
     
 }
 
@@ -124,7 +134,7 @@ body {
     font-size: 30px;
 }
 
-#camera-icon, #help-icon, #data-icon{
+#camera-icon, #help-icon, #data-icon, #download-icon{
     font-size: 30px;
 }
 

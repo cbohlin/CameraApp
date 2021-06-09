@@ -73,6 +73,7 @@ const cameraView = document.querySelector("#camera-view"),
   loaderIcon = document.querySelector("#loaderIcon"),
   checkingIcon = document.querySelector("#checkingIcon"),
   doneIcon = document.querySelector("#doneIcon"),
+  downloadButton = document.querySelector("#download-button"),
   dataButton = document.querySelector("#data-button"),
   helpButton = document.querySelector("#help-button"),
   switchButton = document.querySelector("#switch-button"),
@@ -81,6 +82,7 @@ const cameraView = document.querySelector("#camera-view"),
 
 //
 
+downloadButton.setAttribute("disabled", ""); // disable download pre-collection
 
 
 // Access the device camera and stream to cameraView
@@ -203,11 +205,6 @@ function ImStream(){
 
   var canvasColor = context.getImageData(0, 0, w, h);
   var pixels = canvasColor.data;
-  var rcent = pixels[(4*center)];
-  var rgCent = pixels[(4*center)]/pixels[(4*center)+1];
-  var rbCent = pixels[(4*center)]/pixels[(4*center)+2];
-
-
 
   var redCornMax = Math.max(pixels[(4*UL)],pixels[(4*UR)],pixels[(4*BL)],pixels[(4*BR)]);
   var greenCornMax = Math.max(pixels[(4*UL)+1],pixels[(4*UR)+1],pixels[(4*BL)+1],pixels[(4*BR)+1]);
@@ -219,25 +216,55 @@ function ImStream(){
   var Red = 0;
   var Green = 0;
 
-  
+  var frame_length = pixels.length/4;
+
+  var innerRed = 0;
+  var outerRed = 0;
+  var innerGreen = 0;
+  var outerGreen = 0;
+  // Red averaging scheme
   for (i = 0; i < pixels.length-1; i = i + 4){
+    frame_index = Math.floor(i/4);
     Red = Red + pixels[i];
     Green = Green + pixels[i+1];
+    if (frame_index > frame_length*(1/4) && frame_index < frame_length*(3/4)){
+      innerRed += pixels[i];
+      innerGreen += pixels[i+1];
+    } else{
+      outerRed += pixels[i];
+      outerGreen += pixels[i+1];
+    }
   }
-  Red = -(Red/(pixels.length/4));
-  Green = -(Green/(pixels.length/4));
+  // Finger detection metrics
+  /*
+  for (frame_index = 0; frame_index < frame_length; frame_index++){
+    if (frame_index > frame_length*(1/4) && frame_index < frame_length*(3/4)){
+      innerRed.push(Red.slice(frame_index, frame_index + 1));
+      innerGreen.push(Green.slice(frame_index, frame_index + 1));
+    } else if (frame_index < frame_length*(1/4) && frame_index > frame_length*(3/4)){
+      outerRed.push(Red.slice(frame_index, frame_index + 1));
+      outerGreen.push(Green.slice(frame_index, frame_index + 1));
+    }
+  }*/
+  Red = -(Red/frame_length);
+  Green = -(Green/frame_length);
+  innerRed = -(innerRed/frame_length);
+  innerGreen = -(innerGreen/frame_length);
+  outerRed = -(outerRed/frame_length);
+  outerGreen = -(outerGreen/frame_length);
 
-  rgCent = Red/Green;
-  
+  var rgCent = Red/Green;
+  var innerRG = innerRed / innerGreen;
+  var outerRG = outerRed / outerGreen;
+  var inner_outer_red = innerRed / outerRed;
   // Processing
   if (Fin == 0){
-    
 
 
     //Detect Finger
 
     // No Finger
-    if (rgCent < 1.8){
+    if (rgCent < 1.1){
       FeedbackColor.style.backgroundColor = 'rgba(255, 148, 180, 0)';
       loaderIcon.style.opacity = "0";
       checkingIcon.style.opacity = "0";
@@ -252,11 +279,11 @@ function ImStream(){
     }
           
     // Yes Finger
-    if (rgCent > 1.1){
-      
+    if (innerRG > 5.4){
+      console.log(innerRG);
         
 
-      if (Finger < FPS*1 && rgCent > 1.8){
+      if (Finger < FPS*1 && innerRG > 6.0){
         FeedbackColor.style.backgroundColor = 'rgba(213, 236, 199,1)';
         Feedback.innerHTML = "";
         Finger = Finger + 1;  
@@ -265,18 +292,18 @@ function ImStream(){
         
         
       }
-      else if (Finger >= FPS*1 && Finger < FPS*2 && rgCent > 1.6){
+      else if (Finger >= FPS*1 && Finger < FPS*2 && innerRG > 6.4){
         FeedbackColor.style.backgroundColor = 'rgba(213, 236, 199,1)';
         Feedback.innerHTML = "";
         Finger = Finger + 1;  
         checkingIcon.style.opacity = "1";
       }
-      else if (Finger >= FPS*2 && Finger < FPS*3 && rgCent > 1.4){
+      else if (Finger >= FPS*2 && Finger < FPS*3 && innerRG > 6.2){
         FeedbackColor.style.backgroundColor = 'rgba(213, 236, 199,1)';
         Feedback.innerHTML = "";
         Finger = Finger + 1;  
       }
-      else if (Finger >= FPS*3 && rgCent > 1.1){
+      else if (Finger >= FPS*3 && innerRG > 6.0){
         FeedbackColor.style.backgroundColor = 'rgba(213, 236, 199,1)';
         Feedback.innerHTML = "";
         Finger = Finger + 1;  
@@ -528,7 +555,6 @@ window.addEventListener("doneEvent",dataProcess, false);
 
 
 function dataProcess() {
-
   locs.shift();
 	locs.shift();
   var RR = [locs[1]-locs[0]];
@@ -700,5 +726,18 @@ function dataProcess() {
   window.localStorage.setItem("Collection", String(collectionNumber));
 
 
+  downloadButton.disabled = false; // enable download button
 
+  // exporting csv data
+  downloadButton.onclick = function(){
+    let csvContent = "data:text/csv;charset=utf-8,";
+    csvContent += RedAvFilt + "\r\n" + locs;
+  
+    var encodedUri = encodeURI(csvContent);
+    var link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "filtered_red.csv");
+    document.body.appendChild(link);
+    link.click();
+  }
 }
